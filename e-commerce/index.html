@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome to Shop Hub</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Welcome to Shop Hub</h1>
+        <nav class="main-nav">
+            <a href="index.html" aria-current="page">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="intro-page">
+        <section class="hero">
+            <h2>Your One-Stop Shop for Quality Products</h2>
+            <p class="lead">Discover a wide range of products curated just for you, with unbeatable prices and fast delivery.</p>
+            <a class="btn" href="shop.html">Start Shopping</a>
+        </section>
+
+        <section class="features">
+            <h3>Why Choose Us?</h3>
+            <ul>
+                <li>Quality Assurance</li>
+                <li>Fast and Reliable Shipping</li>
+                <li>Secure Payment Options</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> Shop Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // small script to set year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

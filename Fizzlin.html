@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cool Drinks Co. - Interactive 3D Drinks</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* Login screen styles */
+    #loginScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+    }
+
+    #login3d {
+      width: 300px;
+      height: 300px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #00f;
+      background: #111;
+      display: block;
+    }
+
+    #loginForm {
+      width: 300px;
+    }
+
+    /* Main site hidden initially */
+    #mainSite {
+      display: none;
+      padding-bottom: 50px;
+    }
+
+    /* Navbar dark */
+    .navbar-dark .navbar-nav .nav-link {
+      color: #ccc;
+    }
+
+    .navbar-dark .navbar-nav .nav-link.active,
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #00aaff;
+    }
+
+    /* Sections */
+    .section-padding {
+      padding: 60px 15px;
+    }
+
+    /* Drinks grid */
+    #productsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      color: #e0e0e0;
+    }
+
+    /* Individual drink card */
+    .drink-card {
+      background: #222;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgb(0 170 255 / 0.6);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .drink-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgb(0 170 255 / 0.9);
+    }
+
+    .drink-info {
+      flex: 1;
+    }
+
+    .drink-info h4,
+    .drink-info p {
+      margin: 0 0 10px;
+      color: #a0d8ff;
+    }
+
+    /* 3D display styling */
+    .drink-canvas {
+      width: 150px;
+      height: 150px;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(0 105 180 / 0.8);
+      flex-shrink: 0;
+      cursor: grab;
+      user-select: none;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #bbb;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #00aaff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <canvas id="login3d"></canvas>
+    <form id="loginForm" class="needs-validation" novalidate>
+      <h2 class="mb-3">Login to Cool Drinks</h2>
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" required placeholder="email@example.com" />
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" required placeholder="Password" minlength="6" />
+        <div class="invalid-feedback">Password must be at least 6 characters.</div>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Main Site (hidden initially) -->
+  <div id="mainSite">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Cool Drinks Co.</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#products">Drinks</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="text-center bg-dark p-5" id="home">
+      <h1>Welcome to Cool Drinks Co.</h1>
+      <p>Refreshing 3D Interactive Experience with Our Best Drinks</p>
+    </header>
+
+    <section id="products" class="section-padding container">
+      <h2 class="text-center mb-4">Our Drinks</h2>
+      <div id="productsGrid">
+        <!-- Drink items dynamically inserted by JS -->
+      </div>
+    </section>
+
+    <section id="about" class="section-padding container">
+      <h2>About Us</h2>
+      <p>Cool Drinks Co. has been serving refreshing beverages since 2020. Experience interactive 3D visuals combined
+        with excellent taste and service.</p>
+    </section>
+
+    <section id="contact" class="section-padding container">
+      <h2>Contact Us</h2>
+      <form id="contactForm" novalidate>
+        <div class="mb-3">
+          <label for="contactEmail" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com" required />
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" rows="4" required></textarea>
+          <div class="invalid-feedback">Message cannot be empty.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>© 2025 Cool Drinks Co. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+      <p>
+        Follow us on:
+        <a href="#" aria-label="Facebook">Facebook</a> |
+        <a href="#" aria-label="Twitter">Twitter</a> |
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="TikTok">TikTok</a>
+      </p>
+    </footer>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Data for drinks
+    const drinksData = [
+      {
+        id: 'blue',
+        name: 'Blue Lagoon',
+        description: 'A cool and refreshing blue cocktail.',
+        color: 0x0077be
+      },
+      {
+        id: 'red',
+        name: 'Red Sunset',
+        description: 'A vibrant red fruity beverage.',
+        color: 0xf33
+      },
+      {
+        id: 'green',
+        name: 'Green Mint',
+        description: 'Refreshing mint flavor that\'s cool and fresh.',
+        color: 0x28a745
+      },
+      {
+        id: 'yellow',
+        name: 'Golden Glow',
+        description: 'Bright, sweet, and sunny golden drink.',
+        color: 0xffcc00
+      },
+      {
+        id: 'purple',
+        name: 'Purple Punch',
+        description: 'A bold purple burst of flavor.',
+        color: 0x800080
+      }
+    ];
+
+    // --- LOGIN PAGE 3D SETUP ---
+    const loginCanvas = document.getElementById('login3d');
+    const loginScene = new THREE.Scene();
+    const loginCamera = new THREE.PerspectiveCamera(75, loginCanvas.clientWidth / loginCanvas.clientHeight, 0.1, 1000);
+    const loginRenderer = new THREE.WebGLRenderer({ canvas: loginCanvas, alpha: true, antialias: true });
+    loginRenderer.setSize(loginCanvas.clientWidth, loginCanvas.clientHeight);
+
+    const loginLight = new THREE.PointLight(0x00aaff, 2);
+    loginLight.position.set(3, 3, 3);
+    loginScene.add(loginLight);
+    loginScene.add(new THREE.AmbientLight(0x555555));
+
+    // Rotating 3D bottle for login ad
+    const loginGeometry = new THREE.CylinderGeometry(1, 1, 3, 32);
+    const loginMaterial = new THREE.MeshPhongMaterial({ color: 0x00aaff, shininess: 120 });
+    const loginBottle = new THREE.Mesh(loginGeometry, loginMaterial);
+    loginScene.add(loginBottle);
+
+    loginCamera.position.z = 7;
+
+    function loginAnimate() {
+      requestAnimationFrame(loginAnimate);
+      loginBottle.rotation.y += 0.01;
+      loginRenderer.render(loginScene, loginCamera);
+    }
+    loginAnimate();
+
+    // Handle login validation and show main site
+    const loginForm = document.getElementById('loginForm');
+    const loginScreen = document.getElementById('loginScreen');
+    const mainSite = document.getElementById('mainSite');
+
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!loginForm.checkValidity()) {
+        loginForm.classList.add('was-validated');
+        return;
+      }
+      // For demo: Accept any valid inputs as login success
+      loginScreen.style.display = 'none';
+      mainSite.style.display = 'block';
+      initializeDrinksGrid();
+    });
+
+    // -- MAIN DRINKS GRID -- 
+    const productsGrid = document.getElementById('productsGrid');
+
+    // Initialize drink cards with 3D canvas per drink
+    function initializeDrinksGrid() {
+      productsGrid.innerHTML = '';
+
+      drinksData.forEach(drink => {
+        const card = document.createElement('div');
+        card.className = 'drink-card';
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'drink-canvas';
+        canvas.id = `canvas-${drink.id}`;
+        canvas.width = 150;
+        canvas.height = 150;
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'drink-info';
+        infoDiv.innerHTML = `<h4>${drink.name}</h4><p>${drink.description}</p>`;
+
+        card.appendChild(canvas);
+        card.appendChild(infoDiv);
+        productsGrid.appendChild(card);
+
+        // Create Three.js 3D bottle for each drink
+        setup3DDrinkModel(canvas, drink.color);
+      });
+    }
+
+    // Setup Three.js scene and animation for each drink canvas
+    function setup3DDrinkModel(canvas, color) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(canvas.width, canvas.height);
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0x404040);
+      scene.add(ambientLight);
+      const pointLight = new THREE.PointLight(0xffffff, 1);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+
+      // Bottle geometry and mesh
+      const geometry = new THREE.CylinderGeometry(0.7, 0.7, 2, 32);
+      const material = new THREE.MeshPhongMaterial({ color: color, shininess: 120 });
+      const bottle = new THREE.Mesh(geometry, material);
+      scene.add(bottle);
+
+      camera.position.z = 5;
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        bottle.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
+
+    // Contact form validation
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (contactForm.checkValidity()) {
+        alert('Thank you for contacting us! We will get back to you soon.');
+        contactForm.reset();
+      } else {
+        contactForm.classList.add('was-validated');
+      }
+    }, false);
+
+    // Resize handlers for canvases
+    window.addEventListener('resize', () => {
+      loginRenderer.setSize(loginCanvas.clientWidth, loginCanvas.clientHeight);
+      loginCamera.aspect = loginCanvas.clientWidth / loginCanvas.clientHeight;
+      loginCamera.updateProjectionMatrix();
+
+      // Resize all drink canvases
+      drinksData.forEach(drink => {
+        const can = document.getElementById(`canvas-${drink.id}`);
+        if (can) {
+          const renderer = can._threeRenderer;
+          if (renderer) {
+            renderer.setSize(can.clientWidth, can.clientHeight);
+            if (renderer.camera) {
+              renderer.camera.aspect = can.clientWidth / can.clientHeight;
+              renderer.camera.updateProjectionMatrix();
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

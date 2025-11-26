@@ -1,0 +1,97 @@
+body{
+    background-color: black;
+}
+
+.main-nav{
+    text-align: center;
+}
+
+h1{
+    color: white;
+    text-align: center;
+}
+
+/* Login / auth styles */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 16px;
+  min-height: calc(100vh - 220px);
+  color: #f8f8f8;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+.login-card h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.login-form {
+  display: grid;
+  gap: 10px;
+}
+
+.login-form label {
+  font-size: 13px;
+  color: #ddd;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+  font-size: 15px;
+}
+
+.login-form input::placeholder { color: #bdbdbd; }
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.remember input { margin-right: 6px; }
+
+.btn.primary {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+  background: #2196F3;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn.primary:hover { background: #0b7dda; }
+
+.signup-cta {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
+.signup-cta a { color: #fff; text-decoration: underline; }
+
+/* small screen tweak */
+@media (max-width: 420px) {
+  .login-card { margin: 8px; padding: 16px; }
+  .auth-page { min-height: auto; padding-top: 20px; }
+}
