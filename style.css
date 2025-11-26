@@ -1,65 +1,81 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+/* --- Global Reset & Base Styles --- */
+* {
+    box-sizing: border-box;
     margin: 0;
-    padding: 20px;
-    line-height: 1.6;
-}
-
-h1 {
-    color: #0056b3;
-    border-bottom: 2px solid #0056b3;
-    padding-bottom: 10px;
-}
-
-ul {
-    list-style-type: none; /* Removes bullet points */
     padding: 0;
 }
 
-li a {
-    text-decoration: none;
-    background-color: #ffffff;
-    margin-bottom: 10px;
-    padding: 15px;
-    display: block;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    color: #007bff;
-    transition: background-color 0.3s;
+body {
+    font-family: 'Roboto Mono', monospace; /* Techy font */
+    background-color: #121212; /* Very dark background */
+    color: #E0E0E0; /* Soft white text */
+    padding: 40px 20px;
+    line-height: 1.6;
 }
 
-li a:hover {
-    background-color: #e9ecef;
-    text-decoration: underline;
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
 }
-/* Add to style.css */
 
+/* --- Typography & Neon Glow --- */
+h1, h2, h3 {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
+    color: #00FFFF; /* Neon Cyan */
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* --- Project Cards Layout --- */
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 25px;
+    margin-top: 30px;
 }
 
 .project-card {
-    background-color: #fff;
-    padding: 20px;
+    background-color: #1E1E1E; /* Slightly lighter dark gray for cards */
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    border: 1px solid #00FFFF33; /* Subtle neon border */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.15); /* Glow effect */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); /* Stronger glow on hover */
+}
+
+.project-card h3 {
+    color: #39FF14; /* Neon Green for titles */
+    text-shadow: 0 0 4px rgba(57, 255, 20, 0.5);
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    color: #CCCCCC; /* Light gray description text */
+    margin-bottom: 20px;
 }
 
 .project-card a {
     display: inline-block;
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
+    background-color: transparent;
+    color: #FF00FF; /* Neon Magenta link color */
+    border: 1px solid #FF00FF;
     padding: 10px 15px;
     border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+.project-card a:hover {
+    background-color: #FF00FF;
+    color: #121212;
     text-decoration: none;
 }
