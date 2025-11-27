@@ -135,4 +135,46 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
-/* Responsive Adjustments */
+/* --- New Section Styles (Add to the bottom of style.css) --- */
+section {
+    padding: 60px 0;
+    border-bottom: 1px solid #0f3460; /* Subtle separator */
+}
+
+#home {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#about p {
+    margin-bottom: 15px;
+    color: #a0a0a0;
+}
+
+.service-list {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.service-list p {
+    background-color: #0f3460;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #00ffff33;
+}
+
+#achievements ul {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+#achievements li {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="www.w3.org" width="16" height="16" viewBox="0 0 16 16"><path fill="%2339FF14" d="M12 0H4C3.17 0 2.5.67 2.5 1.5V13L8 10.5 13.5 13V1.5C13.5 .67 12.83 0 12 0z"/></svg>') no-repeat left center;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    color: #00FFFF;
+}
