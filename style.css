@@ -1,4 +1,6 @@
-/* --- Global Reset & Base Styles --- */
+/* --- style.css: The complete and final version for optimal UI/UX --- */
+
+/* Global Reset & Base Styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,11 +8,12 @@
 }
 
 body {
-    font-family: 'Roboto Mono', monospace; /* Techy font */
-    background-color: #121212; /* Very dark background */
-    color: #E0E0E0; /* Soft white text */
+    font-family: 'Roboto Mono', monospace;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* Deep space gradient */
+    color: #E0E0E0;
     padding: 40px 20px;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 .container {
@@ -18,81 +21,70 @@ body {
     margin: 0 auto;
 }
 
-/* --- Typography & Neon Glow --- */
+/* Typography & Neon Glow */
 h1, h2, h3 {
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
-    color: #00FFFF; /* Neon Cyan */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1); 
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    color: #e94560; /* Vibrant red/pink for focus */
 }
 
-/* --- Project Cards Layout --- */
+h2 {
+    color: #00ffff; /* Cyan for subtitles */
+}
+
+/* Project Cards Layout & 3D Effects */
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     margin-top: 30px;
+    perspective: 1000px; /* Essential for 3D depth */
 }
 
 .project-card {
-    background-color: #1E1E1E; /* Slightly lighter dark gray for cards */
+    background-color: #0f3460; /* Main card color, blends with background */
     padding: 25px;
-    border-radius: 8px;
-    border: 1px solid #00FFFF33; /* Subtle neon border */
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.15); /* Glow effect */
-    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+    border: 1px solid #e9456033;
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.2);
+    transition: transform 0.1s ease-out; /* Smoother transition for JS effect */
+    transform-style: preserve-3d; /* Tells the browser children are in 3D space */
+    cursor: pointer;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); /* Stronger glow on hover */
+/* Class added by JS when mouse is over the card */
+.project-card.active-tilt {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.5); /* Stronger glow when interactive */
 }
 
 .project-card h3 {
-    color: #39FF14; /* Neon Green for titles */
-    text-shadow: 0 0 4px rgba(57, 255, 20, 0.5);
+    color: #39ff14; /* Neon Green */
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
     margin-bottom: 10px;
 }
 
 .project-card p {
-    color: #CCCCCC; /* Light gray description text */
+    color: #a0a0a0; /* Softer text color */
     margin-bottom: 20px;
 }
 
 .project-card a {
     display: inline-block;
-    background-color: transparent;
-    color: #FF00FF; /* Neon Magenta link color */
-    border: 1px solid #FF00FF;
+    background-color: #e94560; /* Action color */
+    color: white;
+    border: none;
     padding: 10px 15px;
-    border-radius: 4px;
+    border-radius: 5px;
     text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-    box-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+    box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .project-card a:hover {
-    background-color: #FF00FF;
-    color: #121212;
-    text-decoration: none;
-}
-/* style.css: Add or update these rules */
-
-.portfolio-grid {
-    /* ... existing grid code ... */
-    perspective: 1000px; /* Essential for the 3D effect to have depth */
-}
-
-.project-card {
-    /* ... existing card styles ... */
-    transform-style: preserve-3d; /* Tells the browser children are in 3D space */
-    transition: transform 0.1s ease-out; /* Smoother transition for the JS effect */
-}
-
-/* Optional: Add an active class for when a card is tilted */
-.project-card.active-tilt {
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); 
+    background-color: #ff6b6b;
+    transform: scale(1.05); /* Slight pop out on link hover */
 }
